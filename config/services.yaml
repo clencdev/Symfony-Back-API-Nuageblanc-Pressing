@@ -7,6 +7,11 @@ parameters:
 
 services:
     # default configuration for services in *this* file
+    App\EventListener\HashUserPasswordListener:
+        arguments:
+            - '@security.user_password_hasher'
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
