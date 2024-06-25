@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -15,7 +16,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
                         'client' => Client::class,
                         'emp' => Employ::class
  ])]
-#[ORM\EntityListeners(['App\EntityListener\HashUserPasswordListener'])]
+#[ORM\EntityListeners(['App\EntityListener\HashUserPasswordListener', 'App\EntityListener\IdMakerListener'])]
+
+#[ApiResource]
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {

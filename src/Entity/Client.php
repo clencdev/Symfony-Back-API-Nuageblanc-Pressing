@@ -8,11 +8,15 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 #[ApiResource]
+
+
+
 class Client extends User
 {
     
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $clientId = null;
+
 
 
     public function getClientId(): ?string
@@ -26,4 +30,6 @@ class Client extends User
 
         return $this;
     }
+
+    
 }
