@@ -16,42 +16,42 @@ class IdMakerListener
         $this->randomId = $randomId;
     }
 
-    public function prePersist(Client $client): void
+    public function prePersist($entity): void
     {
-        $this->makeClientId($client);
+        if ($entity instanceof Client) {
+            $this->makeClientId($entity);
+        } elseif ($entity instanceof Employ) {
+            $this->makeEmpId($entity);
+        } 
     }
 
-    public function preUpdate(Client $client): void
+    public function preUpdate($entity): void
     {
-        $this->makeClientId($client);
+        if ($entity instanceof Client) {
+            $this->makeClientId($entity);
+        } elseif ($entity instanceof Employ) {
+            $this->makeEmpId($entity);
+        } 
     }
 
-    public function prePersistEmploy(Employ $employ): void
-    {
-        $this->makeEmpId($employ);
-    }
-
-    public function preUpdateEmploy(Employ $employ): void
-    {
-        $this->makeEmpId($employ);
-    }
+    
 
     public function makeClientId(Client $client)
     {
-        if($client->getClientId() === null) {
+        if ($client->getClientId() === null) {
             $client->setClientId(
                 $this->randomId->generateClientId()
                 ); 
         }  
     }
+
     public function makeEmpId(Employ $employ)
     {
-        if($employ->getEmpId() === null) {
+        if ($employ->getEmpId() === null) {
             $employ->setEmpId(
                 $this->randomId->generateEmpId()
-                ); 
+            );
         }
-        
-        
     }
+    
 }
